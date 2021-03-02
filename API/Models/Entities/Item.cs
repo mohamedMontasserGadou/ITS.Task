@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.Models
+namespace API.Models.Entities
 {
-    public class Step
+    public class Item
     {
         public int Id { get; set; }
-        public List<Item> Items { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
     }
 }
