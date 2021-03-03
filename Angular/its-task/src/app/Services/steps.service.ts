@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class StepsService {
 
-  baseUrl = `${environment.HostUrl}/api/Steps`;
+  private baseUrl = `${environment.HostUrl}/api/Steps`;
   constructor(private _httpClient: HttpClient) { }
 
   public AddNewStep(): Observable<any> {
