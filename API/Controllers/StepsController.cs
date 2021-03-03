@@ -20,7 +20,7 @@ namespace API.Controllers
         {
             _dbContext = dbContext;
         }
-        [HttpPost]
+        [HttpPost("AddNewStep")]
         public async Task<int> AddNewStep()
         {
             var createdStep = await _dbContext.AddAsync(new Step());
@@ -29,7 +29,7 @@ namespace API.Controllers
 
             return createdStep.Entity.Id;
         }
-
+        [HttpGet("GetAllSteps")]
         public async Task<List<StepDto>> GetAllSteps()
         {
             var stepsIds = await _dbContext.Steps.Select(s => s.Id).ToListAsync();

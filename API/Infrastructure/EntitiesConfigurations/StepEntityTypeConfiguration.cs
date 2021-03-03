@@ -8,7 +8,7 @@ namespace API.Infrastructure.EntitiesConfigurations
     {
         public void Configure(EntityTypeBuilder<Step> modelBuilder)
         {
-            modelBuilder.ToTable("Items");
+            modelBuilder.ToTable("Steps");
             modelBuilder.Property(item => item.Id).UseIdentityColumn();
             modelBuilder.HasMany(p => p.Items);
         }
