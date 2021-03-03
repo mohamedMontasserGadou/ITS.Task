@@ -5,10 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Infrastructure\Migrations\" />
     <Folder Include="Infrastructure\Seed\" />
-    <Folder Include="Models\Dto\" />
   </ItemGroup>
 
   <ItemGroup>
