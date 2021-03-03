@@ -11,7 +11,7 @@ import { EditItemDto } from '../Dto/EditItemDto';
 })
 export class ItemsService {
 
-  baseUrl = `${environment.HostUrl}/api/Items`;
+  private baseUrl = `${environment.HostUrl}/api/Items`;
   constructor(private _httpClient: HttpClient) { }
 
   public GetItems(stepId: number) : Observable<any> {

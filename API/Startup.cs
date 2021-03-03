@@ -51,6 +51,13 @@ namespace API
 
             app.UseAuthorization();
 
+            app.UseCors(configurePolicy: c =>
+            {
+                c.AllowAnyOrigin();
+                c.AllowAnyHeader();
+                c.AllowAnyMethod();
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

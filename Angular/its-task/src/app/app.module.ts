@@ -7,6 +7,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { HeaderSectionComponent } from './header-section/header-section.component';
 import { AddOrEditComponent } from './add-or-edit/add-or-edit.component';
 import { ItemComponent } from './item/item.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ItemComponent } from './item/item.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
