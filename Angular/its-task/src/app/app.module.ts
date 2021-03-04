@@ -8,6 +8,7 @@ import { HeaderSectionComponent } from './header-section/header-section.componen
 import { AddOrEditComponent } from './add-or-edit/add-or-edit.component';
 import { ItemComponent } from './item/item.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CdkStep } from '@angular/cdk/stepper';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
     MainPageComponent,
     HeaderSectionComponent,
     AddOrEditComponent,
-    ItemComponent
+    ItemComponent,
+    CdkStep
   ],
   imports: [
     BrowserModule,

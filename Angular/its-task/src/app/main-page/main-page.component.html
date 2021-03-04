@@ -1,12 +1,5 @@
 <section class="container">
-    <header>
-        <h2>Step {{selectedIndex + 1}}/{{steps.length}}</h2>
-    </header>
-
-    <div [style.display]="selected ? 'block' : 'none'">
-        <!-- Content from the CdkStep is projected here -->
-        <ng-container [ngTemplateOutlet]="selected.content"></ng-container>
-    </div>
+    <header-section (stepSelected)="onStepSelection($event)"></header-section>
 
     <footer class="step-navigation-bar">
         <button class="nav-button" cdkStepperPrevious>&larr;</button>
