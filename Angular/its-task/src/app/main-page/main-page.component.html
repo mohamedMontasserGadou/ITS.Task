@@ -1,12 +1,10 @@
 <section class="container">
-    <header-section (stepSelected)="onStepSelection($event)"></header-section>
-
-    <footer class="step-navigation-bar">
-        <button class="nav-button" cdkStepperPrevious>&larr;</button>
-        <button class="step" *ngFor="let step of steps; let i = index;" [ngClass]="{'active': selectedIndex === i}"
-            (click)="onClick(i)">
-            Step {{i + 1}}
-        </button>
-        <button class="nav-button" cdkStepperNext>&rarr;</button>
-    </footer>
+    <header-section [steps]="headerSteps" [selectedIndex]="selectedStepIndex" (stepSelected)="onStepSelection($event)"
+        (stepAdded)="onStepAdded()" (stepRemoved)="onStepRemoved($event)"></header-section>
+    <div *ngFor="let item of items; let i = index;">
+        <item [index]="i+1" [item]="item" (click)="onItemClicked(item)"></item>
+    </div>
+    <add-new-item *ngIf="headerSteps.length > 0 && selectedStepIndex > -1" [item]="createOrEditItem"
+        (itemCreated)="onItemCreated($event)">
+    </add-new-item>
 </section>

@@ -18,4 +18,8 @@ export class StepsService {
   public GetAllSteps(): Observable<any> {
     return this._httpClient.get(`${this.baseUrl}/GetAllSteps`);
   }
+
+  public RemoveStep(stepId: number): Observable<any> {
+    return this._httpClient.post(`${this.baseUrl}/RemoveStep`,stepId);
+  }
 }

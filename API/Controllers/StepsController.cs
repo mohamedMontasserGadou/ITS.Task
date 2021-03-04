@@ -37,5 +37,17 @@ namespace API.Controllers
             return stepsIds.Select(s => new StepDto { Id = s }).ToList();
         }
 
+        [HttpPost("RemoveStep")]
+        public async Task RemoveStep([FromBody]int stepId)
+        {
+            var removedStep = await _dbContext.Steps.Include(s => s.Items).SingleOrDefaultAsync(s => s.Id == stepId);
+
+            if (removedStep == null)
+                return;
+
+            _dbContext.Steps.Remove(removedStep);
+            await _dbContext.SaveChangesAsync();
+        }
+
     }
 }

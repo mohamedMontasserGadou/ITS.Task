@@ -1,8 +1,10 @@
 <div>
     <button class="nav-button" cdkStepperPrevious>&larr;</button>
-    <button class="step" *ngFor="let step of headerSteps; let i = index;" [ngClass]="{'active': selectedIndex === i}"
-        (click)="onStepClick(step.id)">
-        Step {{i + 1}}
+    <button class="step" *ngFor="let step of headerSteps; let i = index;" [ngClass]="{'active': selectedStepIndex === i}"
+        (click)="onStepClick(step.id, i)">
+        Step {{i + 1}} <button class="btn" (click)="onRemoveStepClicked(step.id, i)">-</button>
     </button>
     <button class="nav-button" cdkStepperNext>&rarr;</button>
+
+    <button class="btn btn-small bg-primary" (click)="onAddNewStepClicked()"> Add-New</button>
 </div>

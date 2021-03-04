@@ -13,8 +13,12 @@ import { StepsService } from '../Services/steps.service';
 })
 export class MainPageComponent extends CdkStepper  implements OnInit {
 
-  mySteps: StepDto[] = [];
+  headerSteps: StepDto[] = [];
   items: ItemDto[] = [];
+  selectedStepId: number;
+  createOrEditItem: ItemDto = new ItemDto();
+  selectedStepIndex: number = -1;
+
   constructor(private itemsService: ItemsService,
     private stepsService: StepsService,
     _dir: Directionality, 
@@ -23,13 +27,56 @@ export class MainPageComponent extends CdkStepper  implements OnInit {
   }
 
   ngOnInit() {
-    this.stepsService.GetAllSteps().subscribe(steps => this.mySteps = steps);
+    this.stepsService.GetAllSteps().subscribe(steps => this.headerSteps = steps);
   }
 
-  onStepSelection(stepId: number) {
+  onStepSelection(eventData: any) {
     this.items = [];
-    this.itemsService.GetItems(stepId)
+    this.selectedStepId = eventData.stepId;
+    this.selectedStepIndex = eventData.stepIndex;
+    this.createOrEditItem.stepId = eventData.stepId;
+    this.createOrEditItem = Object.assign({},this.createOrEditItem);
+    this.itemsService.GetItems(eventData.stepId)
     .subscribe(items => this.items = items);
   }
 
+  onItemClicked(item: ItemDto) {
+    this.createOrEditItem = item;
+  }
+
+
+  onStepAdded() {
+    this.headerSteps.push({id: 0});
+    this.stepsService.AddNewStep()
+    .subscribe(id =>{
+      this.headerSteps.find(s => s.id === 0).id = id;
+    });
+  }
+
+  onStepRemoved(eventData: any) {
+    this.headerSteps.splice(eventData.stepIndex,1);
+
+    if(this.selectedStepIndex === eventData.stepIndex)
+      this.items = [];
+
+    if(this.headerSteps.length === 0)
+      this.selectedStepIndex = -1;
+
+    this.stepsService.RemoveStep(eventData.stepId)
+    .subscribe();
+  }
+
+  onItemCreated(item: ItemDto) {
+    this.items.push({
+      id: item.id,
+      description: item.description,
+      title: item.title,
+      stepId: item.stepId
+    });
+    this.itemsService.AddItem({
+      stepId: item.stepId,
+      description: item.description,
+      title: item.title
+    }).subscribe(id => this.items.find(i => i.id == item.id).id = id);
+  }
 }

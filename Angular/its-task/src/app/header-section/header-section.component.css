@@ -1,0 +1,17 @@
+.nav-button {
+    background: transparent;
+    border: 0;
+}
+
+.active {
+  color: blue;
+}
+
+.step {
+    background: transparent;
+    border: 0;
+    margin: 0 1px;
+    padding: 1px;
+    color: black;
+  }
+  

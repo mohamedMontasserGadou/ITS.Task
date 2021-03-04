@@ -9,6 +9,8 @@ import { AddOrEditComponent } from './add-or-edit/add-or-edit.component';
 import { ItemComponent } from './item/item.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CdkStep } from '@angular/cdk/stepper';
+import { AddNewItemComponent } from './add-new-item/add-new-item.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,12 +19,14 @@ import { CdkStep } from '@angular/cdk/stepper';
     HeaderSectionComponent,
     AddOrEditComponent,
     ItemComponent,
-    CdkStep
+    CdkStep,
+    AddNewItemComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
