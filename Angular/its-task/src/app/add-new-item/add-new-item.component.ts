@@ -9,12 +9,13 @@ import { ItemDto } from '../Dto/ItemDto';
 export class AddNewItemComponent implements OnInit {
 
   @Input() item: ItemDto = new ItemDto();
-  @Output('itemCreated') itemCreated: EventEmitter<ItemDto> = new EventEmitter<ItemDto>();
+  @Input() enableAddOrEdit: boolean = false;
+  @Output('itemCreatedOrUpdated') itemCreatedOrUpdated: EventEmitter<ItemDto> = new EventEmitter<ItemDto>();
   constructor() { }
 
   ngOnInit() {
   }
   onSaveButtonClicked(item: ItemDto) {
-    this.itemCreated.emit(item);
+    this.itemCreatedOrUpdated.emit(item);
   }
 }

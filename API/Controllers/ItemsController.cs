@@ -60,7 +60,7 @@ namespace API.Controllers
         }
 
         [HttpPost("RemoveItem")]
-        public async Task RemoveItem(int itemId)
+        public async Task RemoveItem([FromBody]int itemId)
         {
             var item = await _dbContext.Items.SingleOrDefaultAsync(i => i.Id == itemId);
 

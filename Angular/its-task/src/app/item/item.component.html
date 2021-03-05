@@ -1,5 +1,5 @@
 <div class="card text-black mb-3" style="max-width: 18rem;">
-    <div class="card-header bg-primary">Item {{index}} <button class="btn btn-small">-</button></div>
+    <div class="card-header bg-primary">Item {{index}} <button class="btn btn-small" (click)="onRemoveItemClicked(item.id)">-</button></div>
     <div class="card-body">
         <span class="card-title">{{item.title}}</span>
         <p class="card-text">{{item.description}}</p>

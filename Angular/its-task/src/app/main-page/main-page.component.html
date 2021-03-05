@@ -1,10 +1,30 @@
-<section class="container">
-    <header-section [steps]="headerSteps" [selectedIndex]="selectedStepIndex" (stepSelected)="onStepSelection($event)"
-        (stepAdded)="onStepAdded()" (stepRemoved)="onStepRemoved($event)"></header-section>
-    <div *ngFor="let item of items; let i = index;">
-        <item [index]="i+1" [item]="item" (click)="onItemClicked(item)"></item>
+<section class="container mt-3">
+    <div class="row">
+        <div class="col">
+            <header-section [steps]="steps" [selectedIndex]="selectedStepIndex" (stepSelected)="onStepSelection($event)"
+                (stepAdded)="onStepAdded()" (stepRemoved)="onStepRemoved($event)"></header-section>
+        </div>
+        <div class="col">
+            <div class="col">
+                <button class="btn btn-small bg-primary mt-3" (click)="onAddNewItemClicked()">Add New Item</button>
+            </div>
+        </div>
     </div>
-    <add-new-item *ngIf="headerSteps.length > 0 && selectedStepIndex > -1" [item]="createOrEditItem"
-        (itemCreated)="onItemCreated($event)">
-    </add-new-item>
+    <div class="row">
+        <div class="col">
+            <item *ngFor="let item of items; let i = index;" [index]="i+1" [item]="item" (click)="onItemClicked(item)"
+                (itemRemoved)="onItemRemoved($event)"></item>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8">
+            <add-new-item *ngIf="steps.length > 0 && selectedStepIndex > -1" [item]="createOrEditItem"
+                (itemCreatedOrUpdated)="onItemCreatedOrUpdated($event)" [enableAddOrEdit]="enableAddOrEditItem">
+            </add-new-item>
+        </div>
+    </div>
+    <div class="row">
+        <footer-section [displayNext]="steps.length > 0 && selectedStepIndex < steps.length"
+            [displayPrev]=" steps.length > 0 && selectedStepIndex > 0" (nextStepClicked)="onNextStepClicked()" (prevStepClicked)="onPrevStepClicked()"></footer-section>
+    </div>
 </section>

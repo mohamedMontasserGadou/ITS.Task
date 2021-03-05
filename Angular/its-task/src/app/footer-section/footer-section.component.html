@@ -1,0 +1,8 @@
+<div class="mt-3">
+    <ul class="pagination">
+        <li *ngIf="displayPrev" class="page-item"> <button class="btn btn-small bg-primary mr-5" (click)="goToPrevStep()">
+                Previous</button></li>
+        <li *ngIf="displayNext" class="page-item"> <button class="btn btn-small bg-primary ml-5" (click)="goToNext()">
+                Next</button></li>
+    </ul>
+</div>

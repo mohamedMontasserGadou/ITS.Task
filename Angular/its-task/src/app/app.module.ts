@@ -8,9 +8,9 @@ import { HeaderSectionComponent } from './header-section/header-section.componen
 import { AddOrEditComponent } from './add-or-edit/add-or-edit.component';
 import { ItemComponent } from './item/item.component';
 import { HttpClientModule } from '@angular/common/http';
-import { CdkStep } from '@angular/cdk/stepper';
 import { AddNewItemComponent } from './add-new-item/add-new-item.component';
 import { FormsModule } from '@angular/forms';
+import { FooterSectionComponent } from './footer-section/footer-section.component';
 
 @NgModule({
   declarations: [
@@ -19,8 +19,8 @@ import { FormsModule } from '@angular/forms';
     HeaderSectionComponent,
     AddOrEditComponent,
     ItemComponent,
-    CdkStep,
-    AddNewItemComponent
+    AddNewItemComponent,
+    FooterSectionComponent
   ],
   imports: [
     BrowserModule,

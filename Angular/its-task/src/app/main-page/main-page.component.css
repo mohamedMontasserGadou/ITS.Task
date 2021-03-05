@@ -3,24 +3,3 @@
     padding: 10px;
     margin: 10px;
 }
-
-.example-step-navigation-bar {
-  display: flex;
-  justify-content: flex-start;
-  margin-top: 10px;
-}
-
-.active {
-  color: blue;
-}
-
-
-.example-step.example-active {
-  color: blue;
-  border-bottom: 1px solid blue;
-}
-
-.example-nav-button {
-  background: transparent;
-  border: 0;
-}

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ItemDto } from '../Dto/ItemDto';
 
 @Component({
@@ -9,9 +9,13 @@ import { ItemDto } from '../Dto/ItemDto';
 export class ItemComponent implements OnInit {
   @Input() index: number;
   @Input() item:ItemDto;
+  @Output() itemRemoved: EventEmitter<number> = new EventEmitter<number>();
   constructor() { }
 
   ngOnInit() {
+  }
+  onRemoveItemClicked(itemId: number){
+    this.itemRemoved.emit(itemId);
   }
 
 }
