@@ -8,8 +8,9 @@ import { StepDto } from '../Dto/StepDto';
 })
 export class HeaderSectionComponent implements OnInit {
 
-  
-  @Input('steps') headerSteps: StepDto[] = [];
+  @Input('page') page: number = 0;
+  @Input('pageSize') pageSize: number = 0;
+  @Input('steps') steps: StepDto[] = [];
   @Input('selectedIndex') selectedStepIndex: number = -1;
   @Output() stepSelected: EventEmitter<number> = new EventEmitter<number>();
   @Output() stepAdded: EventEmitter<any> = new EventEmitter<any>();

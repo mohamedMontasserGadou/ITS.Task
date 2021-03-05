@@ -14,16 +14,25 @@ export class MainPageComponent implements OnInit {
 
   steps: StepDto[] = [];
   items: ItemDto[] = [];
+
   selectedStepId: number;
   createOrEditItem: ItemDto = new ItemDto();
   selectedStepIndex: number = -1;
   enableAddOrEditItem: boolean = false;
+  currentPage: number = 0;
+  pageSize: number = 5;
+  totalSteps: number = 0;
+
   constructor(private itemsService: ItemsService,
     private stepsService: StepsService) {
   }
 
   ngOnInit() {
-    this.stepsService.GetAllSteps().subscribe(steps => this.steps = steps);
+    this.stepsService.GetAllSteps(this.currentPage)
+    .subscribe(stepResult => {
+      this.steps = stepResult.data;
+      this.totalSteps = stepResult.total;
+    });
   }
 
   onStepSelection(stepIndex: number) {
@@ -40,16 +49,21 @@ export class MainPageComponent implements OnInit {
 
 
   onStepAdded() {
+    if(this.steps.length == this.pageSize)
+      this.currentPage = this.currentPage + 1;
     this.stepsService.AddNewStep()
     .subscribe(id =>{
-      this.stepsService.GetAllSteps().subscribe(steps => this.steps = steps);
+      this.stepsService.GetAllSteps(this.currentPage).subscribe(steps => this.steps = steps);
     });
   }
 
   onStepRemoved(stepIndex: number) {
+    if(this.steps.length == 1)
+      this.currentPage = this.currentPage - 1;
+    
     let stepId = this.steps[stepIndex].id;    
     this.steps.splice(stepIndex,1);
-
+      
     if(this.selectedStepIndex === stepIndex)
       this.items = [];
 

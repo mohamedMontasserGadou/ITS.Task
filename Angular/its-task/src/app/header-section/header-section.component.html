@@ -1,7 +1,14 @@
 <div>
-    <button class="btn bg-primary ml-1" *ngFor="let step of headerSteps; let i = index;" [ngClass]="{'active': selectedStepIndex === i}"
+    <button *ngIf="page > 0" class="btn">
+        <span aria-hidden="true">&laquo;</span>
+    </button>
+    <button class="btn bg-primary ml-1" *ngFor="let step of steps; let i = index" [ngClass]="{'active': selectedStepIndex === i}"
         (click)="onStepClick(i)">
-        Step {{i + 1}} <span class="" (click)="onRemoveStepClicked(i)">-</span>
+        Step {{i + (1 +(page*pageSize))}} <span (click)="onRemoveStepClicked(i)">-</span>
     </button>
     <button class="btn bg-primary ml-1" (click)="onAddNewStepClicked()">+</button>
+
+    <button *ngIf="steps.length == pageSize" class="btn">
+        <span aria-hidden="true">&raquo;</span>
+    </button>
 </div>

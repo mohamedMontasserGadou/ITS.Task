@@ -16,6 +16,7 @@ namespace API.Controllers
     public class StepsController : ControllerBase
     {
         private readonly AppDbContext _dbContext;
+        const int PAGE_SIZE = 5;
         public StepsController(AppDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -29,12 +30,17 @@ namespace API.Controllers
 
             return createdStep.Entity.Id;
         }
-        [HttpGet("GetAllSteps")]
-        public async Task<List<StepDto>> GetAllSteps()
+        [HttpGet("GetAllSteps/{pageNumber}")]
+        public async Task<StepsPageResultDto> GetAllSteps(int pageNumber)
         {
-            var stepsIds = await _dbContext.Steps.Select(s => s.Id).ToListAsync();
+            var total = await _dbContext.Steps.CountAsync();
+            var data = await _dbContext.Steps.Select(s => s.Id).Skip(pageNumber * PAGE_SIZE).Take(PAGE_SIZE).ToListAsync();
 
-            return stepsIds.Select(s => new StepDto { Id = s }).ToList();
+            return new StepsPageResultDto
+            {
+                Data = data.Select(s => new StepDto { Id = s }).ToList(),
+                Total = total
+            };
         }
 
         [HttpPost("RemoveStep")]

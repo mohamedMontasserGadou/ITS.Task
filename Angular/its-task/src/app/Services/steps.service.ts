@@ -15,8 +15,8 @@ export class StepsService {
     return  this._httpClient.post(`${this.baseUrl}/AddNewStep`,undefined);
   }
 
-  public GetAllSteps(): Observable<any> {
-    return this._httpClient.get(`${this.baseUrl}/GetAllSteps`);
+  public GetAllSteps(pageNumber: number): Observable<any> {
+    return this._httpClient.get(`${this.baseUrl}/GetAllSteps/${pageNumber}`);
   }
 
   public RemoveStep(stepId: number): Observable<any> {

@@ -1,7 +1,7 @@
 <section class="container mt-3">
     <div class="row">
-        <div class="col">
-            <header-section [steps]="steps" [selectedIndex]="selectedStepIndex" (stepSelected)="onStepSelection($event)"
+        <div>
+            <header-section [steps]="steps" [selectedIndex]="selectedStepIndex" [page]="currentPage" [pageSize]="pageSize" (stepSelected)="onStepSelection($event)"
                 (stepAdded)="onStepAdded()" (stepRemoved)="onStepRemoved($event)"></header-section>
         </div>
         <div class="col">
@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="row">
-        <footer-section [displayNext]="steps.length > 0 && selectedStepIndex < steps.length"
+        <footer-section [displayNext]="steps.length > 0 && steps.length < totalSteps && selectedStepIndex >= 0"
             [displayPrev]=" steps.length > 0 && selectedStepIndex > 0" (nextStepClicked)="onNextStepClicked()" (prevStepClicked)="onPrevStepClicked()"></footer-section>
     </div>
 </section>
