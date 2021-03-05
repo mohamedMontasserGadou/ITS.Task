@@ -1,14 +1,14 @@
 <div>
-    <button *ngIf="page > 0" class="btn">
+    <button *ngIf="page > 0" class="btn" (click)="onGetPrevPageClicked()">
         <span aria-hidden="true">&laquo;</span>
     </button>
     <button class="btn bg-primary ml-1" *ngFor="let step of steps; let i = index" [ngClass]="{'active': selectedStepIndex === i}"
         (click)="onStepClick(i)">
-        Step {{i + (1 +(page*pageSize))}} <span (click)="onRemoveStepClicked(i)">-</span>
+        Step {{i + (1 +(page*pageSize))}} <span (click)="onRemoveStepClicked($event,i)">-</span>
     </button>
     <button class="btn bg-primary ml-1" (click)="onAddNewStepClicked()">+</button>
 
-    <button *ngIf="steps.length == pageSize" class="btn">
+    <button *ngIf="steps.length == pageSize" class="btn" (click)="onGetNextPageClicked()">
         <span aria-hidden="true">&raquo;</span>
     </button>
 </div>

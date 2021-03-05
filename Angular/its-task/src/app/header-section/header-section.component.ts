@@ -15,6 +15,9 @@ export class HeaderSectionComponent implements OnInit {
   @Output() stepSelected: EventEmitter<number> = new EventEmitter<number>();
   @Output() stepAdded: EventEmitter<any> = new EventEmitter<any>();
   @Output() stepRemoved: EventEmitter<number> = new EventEmitter<number>();
+  @Output() prevPageClicked: EventEmitter<any> = new EventEmitter<any>();
+  @Output() nextPageClicked: EventEmitter<any> = new EventEmitter<any>();
+
 
   constructor() {
   }
@@ -28,7 +31,16 @@ export class HeaderSectionComponent implements OnInit {
     this.stepAdded.emit();
   }
 
-  onRemoveStepClicked(stepIndex: number) {
+  onRemoveStepClicked(eventData, stepIndex: number) {
     this.stepRemoved.emit(stepIndex);
+    eventData.stopPropagation();
+  }
+
+  onGetPrevPageClicked() {
+    this.prevPageClicked.emit();
+  }
+
+  onGetNextPageClicked() {
+    this.nextPageClicked.emit();
   }
 }

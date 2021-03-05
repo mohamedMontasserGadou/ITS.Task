@@ -28,17 +28,14 @@ export class MainPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.stepsService.GetAllSteps(this.currentPage)
-    .subscribe(stepResult => {
-      this.steps = stepResult.data;
-      this.totalSteps = stepResult.total;
-    });
+    this.getAllSteps(this.currentPage);
   }
 
   onStepSelection(stepIndex: number) {
     this.selectedStepIndex = stepIndex;
     this.setSelectedStepId(this.selectedStepIndex);
     this.assignCreateOrEditItem(undefined);
+    this.enableAddOrEditItem = false;
     this.getItems(this.selectedStepId);
   }
 
@@ -49,29 +46,19 @@ export class MainPageComponent implements OnInit {
 
 
   onStepAdded() {
-    if(this.steps.length == this.pageSize)
-      this.currentPage = this.currentPage + 1;
     this.stepsService.AddNewStep()
-    .subscribe(id =>{
-      this.stepsService.GetAllSteps(this.currentPage).subscribe(steps => this.steps = steps);
-    });
+    .subscribe( () => this.getAllSteps(this.currentPage));
   }
 
   onStepRemoved(stepIndex: number) {
-    if(this.steps.length == 1)
-      this.currentPage = this.currentPage - 1;
     
     let stepId = this.steps[stepIndex].id;    
-    this.steps.splice(stepIndex,1);
       
     if(this.selectedStepIndex === stepIndex)
       this.items = [];
 
-    if(this.steps.length === 0)
-      this.selectedStepIndex = -1;
-
     this.stepsService.RemoveStep(stepId)
-    .subscribe();
+    .subscribe( () => this.getAllSteps(this.currentPage));
   }
 
   onItemCreatedOrUpdated(item: ItemDto) {
@@ -105,14 +92,36 @@ export class MainPageComponent implements OnInit {
 
   onNextStepClicked() {
     this.selectedStepIndex = this.selectedStepIndex + 1;
-    this.setSelectedStepId(this.selectedStepIndex);
-    this.getItems(this.selectedStepId);
+    if(this.selectedStepIndex == this.pageSize)
+    {
+      this.onNextPagesClicked();
+    }
+    else
+    {
+      this.setSelectedStepId(this.selectedStepIndex);
+      this.getItems(this.selectedStepId);
+    }
   }
 
   onPrevStepClicked() {
     this.selectedStepIndex = this.selectedStepIndex -1;
-    this.setSelectedStepId(this.selectedStepIndex);
-    this.getItems(this.selectedStepId);
+    if(this.selectedStepIndex < 0)
+      this.onPrevPagesClikced();
+    else
+    {
+      this.setSelectedStepId(this.selectedStepIndex);
+      this.getItems(this.selectedStepId);
+    }
+  }
+
+  onPrevPagesClikced() {
+    this.currentPage = this.currentPage -1;
+    this.getAllSteps(this.currentPage);
+  }
+
+  onNextPagesClicked() {
+    this.currentPage = this.currentPage +1;
+    this.getAllSteps(this.currentPage);
   }
 
 
@@ -149,5 +158,13 @@ export class MainPageComponent implements OnInit {
   private removeItem(itemId: number) {
     this.itemsService.DeleteItem(itemId)
     .subscribe(()=> this.getItems(this.selectedStepId));
+  }
+
+  private getAllSteps(pageNumber: number) {
+    this.stepsService.GetAllSteps(pageNumber)
+      .subscribe(res => {
+        this.steps = res.data;
+        this.totalSteps = res.total;
+      });
   }
 }

@@ -1,8 +1,11 @@
 <section class="container mt-3">
     <div class="row">
+        <h5>TotalSteps: {{totalSteps}} </h5>
+    </div>
+    <div class="row">
         <div>
             <header-section [steps]="steps" [selectedIndex]="selectedStepIndex" [page]="currentPage" [pageSize]="pageSize" (stepSelected)="onStepSelection($event)"
-                (stepAdded)="onStepAdded()" (stepRemoved)="onStepRemoved($event)"></header-section>
+                (stepAdded)="onStepAdded()" (stepRemoved)="onStepRemoved($event)" (nextPageClicked)="onNextPagesClicked()" (prevPageClicked)="onPrevPagesClikced()"></header-section>
         </div>
         <div class="col">
             <div class="col">
@@ -25,6 +28,6 @@
     </div>
     <div class="row">
         <footer-section [displayNext]="steps.length > 0 && steps.length < totalSteps && selectedStepIndex >= 0"
-            [displayPrev]=" steps.length > 0 && selectedStepIndex > 0" (nextStepClicked)="onNextStepClicked()" (prevStepClicked)="onPrevStepClicked()"></footer-section>
+            [displayPrev]="(steps.length > 0 && selectedStepIndex > 0) || currentPage > 0" (nextStepClicked)="onNextStepClicked()" (prevStepClicked)="onPrevStepClicked()"></footer-section>
     </div>
 </section>
