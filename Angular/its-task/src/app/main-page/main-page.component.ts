@@ -4,7 +4,7 @@ import { ItemsService } from '../Services/items.service';
 import { Directionality } from '@angular/cdk/bidi';
 import { StepDto } from '../Dto/StepDto';
 import { StepsService } from '../Services/steps.service';
-import { CreateNewItemDto } from '../Dto/CreateNewItemDto';
+import { isEmptyExpression } from '@angular/compiler';
 @Component({
   selector: 'main-page',
   templateUrl: './main-page.component.html',
@@ -71,6 +71,7 @@ export class MainPageComponent implements OnInit {
     }
     else // CreateMode
     {
+
       this.createNewItem(item);
     }
   }
@@ -141,6 +142,10 @@ export class MainPageComponent implements OnInit {
   }
 
   private createNewItem(item: ItemDto) {
+
+    if(this.validateItemBeforeCreate(item) == false)
+      return;
+    
     this.itemsService.AddItem({
       stepId: item.stepId,
       description: item.description,
@@ -166,5 +171,37 @@ export class MainPageComponent implements OnInit {
         this.steps = res.data;
         this.totalSteps = res.total;
       });
+  }
+
+  private validateItemBeforeCreate(item: ItemDto) : boolean {
+    if(item == undefined)
+      return false;
+    if(item.title == '' || item.title == undefined)
+      return false;
+
+    if(item.description == '' || item.description == undefined)
+      return false;
+    
+    if(item.stepId < 0 || item.stepId == undefined)
+      return false;
+
+    return true;
+  }
+
+  canGoNext() {
+    if(this.steps.length < this.totalSteps)
+      return true;
+    
+    if(this.selectedStepIndex < this.steps.length -1)
+      return true;
+    
+    return false;
+  }
+
+  canGoPrev() {
+    if(this.currentPage == 0 && this.selectedStepIndex == 0)
+      return false;
+
+    return true;
   }
 }
