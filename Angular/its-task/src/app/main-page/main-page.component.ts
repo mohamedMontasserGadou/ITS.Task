@@ -61,8 +61,9 @@ export class MainPageComponent implements OnInit {
   }
 
   onItemCreatedOrUpdated(item: ItemDto) {
-    this.assignCreateOrEditItem(undefined);
     this.enableAddOrEditItem = false;
+    this.assignCreateOrEditItem(undefined);
+
     if(item.id) // Edit Mode
     {
       this.editItem(item);
@@ -75,14 +76,16 @@ export class MainPageComponent implements OnInit {
 
 
   onAddNewItemClicked() {
+    if(this.selectedStepIndex  == -1)
+      return;
     this.assignCreateOrEditItem(undefined);
     this.enableAddOrEditItem = true;
   }
 
 
   onItemRemoved(itemId) {
-    this.removeItem(itemId);
     this.assignCreateOrEditItem(undefined);
+    this.removeItem(itemId);
   }
 
 
@@ -110,7 +113,7 @@ export class MainPageComponent implements OnInit {
   }
 
   private assignCreateOrEditItem(item: ItemDto) {
-    item ? this.createOrEditItem = item : new ItemDto();
+    item ? this.createOrEditItem = item : this.createOrEditItem = new ItemDto();
     this.createOrEditItem.stepId = this.selectedStepId;
   }
 
@@ -127,7 +130,7 @@ export class MainPageComponent implements OnInit {
       description: item.description,
       title: item.title,
       id: item.id
-    }).subscribe(() => this.getItems(item.stepId));
+    }).subscribe(() => this.getItems(this.selectedStepId));
   }
   private removeItem(itemId: number) {
     this.itemsService.DeleteItem(itemId)

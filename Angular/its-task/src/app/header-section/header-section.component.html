@@ -1,7 +1,7 @@
 <div>
     <button class="btn bg-primary ml-1" *ngFor="let step of headerSteps; let i = index;" [ngClass]="{'active': selectedStepIndex === i}"
         (click)="onStepClick(i)">
-        Step {{i + 1}} <span class="" (click)="onRemoveStepClicked(step.id, i)">-</span>
+        Step {{i + 1}} <span class="" (click)="onRemoveStepClicked(i)">-</span>
     </button>
     <button class="btn bg-primary ml-1" (click)="onAddNewStepClicked()">+</button>
 </div>

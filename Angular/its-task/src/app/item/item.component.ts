@@ -14,8 +14,9 @@ export class ItemComponent implements OnInit {
 
   ngOnInit() {
   }
-  onRemoveItemClicked(itemId: number){
+  onRemoveItemClicked(eventData ,itemId: number){
     this.itemRemoved.emit(itemId);
+    eventData.stopPropagation();
   }
 
 }
